@@ -19,10 +19,16 @@ The following code is for creating the tidy data set for the course project
                 #add colNames/variable names to TraingSet
                 names(TrainSet) <- featureName
 
-                #cbind "TraningLabels" and "subjectTrain" to TrainingSet and rename the first two columns
+                #cbind "TraningLabels" and "subjectTrain" to TrainingSet
                 TrainSet <- cbind(TrainLabels, TrainSet)
                 TrainSet <- cbind(subjectTrain, TrainSet)
-                names(TrainSet)[1:2] <- c("subject", "ActivityLabels")
+        
+        
+                #add group tag "train" to the TrainSet
+                TrainSet <- cbind(group=rep("train", times=nrow(TrainSet)), TrainSet)
+
+                #rename the first three columns
+                names(TrainSet)[1:3] <- c("group", "subject", "Activity")
 
         #dealing with "test set"
                 #read "test set", "Test labels" and "subject_test" into R
@@ -32,33 +38,40 @@ The following code is for creating the tidy data set for the course project
 
                 #add colNames/variable names to TestSet
                 names(TestSet) <- featureName
-
-                #cbind "TestLabels" and "subjectTest" to TestSet and rename the first two columns
+        
+                #cbind "TestLabels" and "subjectTest" to TestSet
                 TestSet <- cbind(TestLabels, TestSet)
                 TestSet <- cbind(subjectTest, TestSet)
-                names(TestSet)[1:2] <- c("subject", "ActivityLabels")
+
+                #add group tag "test" to the TestSet
+                TestSet <- cbind(group=rep("test", times=nrow(TestSet)), TestSet)
+
+                #rename the first three columns
+                names(TestSet)[1:3] <- c("group", "subject", "Activity")
 
         #merges the test/train data sets
-        TestTrain <- rbind(TestSet, TrainSet)
+        TestTrain <- rbind(TrainSet, TestSet)
 
         #subset the data table with mean and standard deviation
-        TestTrainSubset <- TestTrain[,c(1:2, sort(union(grep("mean\\(\\)", names(TestTrain)), 
-                                                grep("std\\(\\)", names(TestTrain)))
-                                ))]
+        TestTrainSubset <- TestTrain[,c(1:3, sort(union(grep("mean\\(\\)", names(TestTrain)), 
+                                                        grep("std\\(\\)", names(TestTrain)))
+                                    ))]
 
         #set activity names using descriptive word
         #use factor, set values to different factor levels
-        factorActivity <- factor(TestTrainSubset$ActivityLabels)
+        factorActivity <- factor(TestTrainSubset$Activity)
         levels(factorActivity) <- c("WALKING", "WALKING_UPSTAIRS", 
                                 "WALKING_DOWNSTAIRS", "SITTING", "STANDING", "LAYING")
-        TestTrainSubset$ActivityLabels <- factorActivity
+        TestTrainSubset$Activity <- factorActivity
 
-        #convert TestTrainSubset to tbl, and group by subject and activity
+        #convert TestTrainSubset to tbl, and group by group, subject and activity
         TestTrainSubset <-tbl_df(TestTrainSubset)
-        TidyBy_Subject_Activity <- group_by(TestTrainSubset, subject, ActivityLabels)
+        TidyBy_Subject_Activity <- group_by(TestTrainSubset, group, subject, Activity)
 
         #summarize/take_mean the grouped Tidy data set
         TidyMean <- summarise_each(TidyBy_Subject_Activity, funs(mean))
 
         #save TidyMean as txt file
         write.table(TidyMean, file="TidyMean.txt", row.names=FALSE)
+
+        
