@@ -2,6 +2,7 @@
 This folder is for the Course Project of Coursera GettingAndCleaningData Course
 
 #Data processing procedure
+###The data files unzipped should be kept as where it is, and should not be move out from the "test" or "train" folder in order for using this script, otherwise the path of the files should be reset.
    1. Load the "train" and "test" data set into R, separately.
 
    2. Create new variables for labelling each observation, using "subject" and "activity" labels.
