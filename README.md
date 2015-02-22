@@ -5,11 +5,11 @@ The following code is for creating the tidy data set for the course project
 
 library(dplyr)
 
-#read "features" into R and extract feature name
+##read "features" into R and extract feature name
 feature <- read.table("features.txt")
 featureName <- as.character(feature$V2)
 
-#dealing with "Traning set"
+##dealing with "Traning set"
         #read "Training set", "Training labels" and "subject_test" into R
         TrainSet <- read.table("train/X_train.txt")
         TrainLabels <- read.table("train/y_train.txt")
