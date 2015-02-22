@@ -1,6 +1,18 @@
 # GettingAndCleaningData
 This folder is for the Course Project of Coursera GettingAndCleaningData Course
 
+#Data processing procedure
+   1. Load the "train" and "test" data set into R, separately.
+
+   2. Create new variables for labelling each observation, using "subject" and "activity" labels.
+
+   3. Mark the "train" and "test" group with corresponding tag.
+
+   4. Combine the "train" and "test" data and subset the data set to extract the mean and standard deviation values.
+
+   5. Group the subsetted data set by "group", "subject" and "activity", then apply mean function to obtain the mean values, this results in the final tidy data set.
+
+   6. Export the final data set to a .txt file.
 
 The following code is for creating the tidy data set for the course project
 
