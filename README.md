@@ -10,15 +10,15 @@ feature <- read.table("features.txt")
 featureName <- as.character(feature$V2)
 
 ##dealing with "Traning set"
-        #read "Training set", "Training labels" and "subject_test" into R
+        ##read "Training set", "Training labels" and "subject_test" into R
         TrainSet <- read.table("train/X_train.txt")
         TrainLabels <- read.table("train/y_train.txt")
         subjectTrain <- read.table("train/subject_train.txt")
 
-        #add colNames/variable names to TraingSet
+        ##add colNames/variable names to TraingSet
         names(TrainSet) <- featureName
 
-        #cbind "TraningLabels" and "subjectTrain" to TrainingSet and rename the first two columns
+        ##cbind "TraningLabels" and "subjectTrain" to TrainingSet and rename the first two columns
         TrainSet <- cbind(TrainLabels, TrainSet)
         TrainSet <- cbind(subjectTrain, TrainSet)
         names(TrainSet)[1:2] <- c("subject", "ActivityLabels")
