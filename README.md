@@ -14,7 +14,7 @@ This folder is for the Course Project of Coursera GettingAndCleaningData Course
 
    6. Export the final data set to a .txt file.
 
-The following code is for creating the tidy data set for the course project
+#The following code is for creating the tidy data set for the course project
 
         library(dplyr)
 
